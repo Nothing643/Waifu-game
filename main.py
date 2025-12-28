@@ -4,7 +4,7 @@ import json
 import os
 
 
-#########################################
+"======================================================================"
 common_waifus = [
     "sakura", "sakura matou", "kanao", "shouko", "yui", "megumin",
     "aqua", "darkness", "lalatina", "itsuki", "yotsuba", "ichika",
@@ -15,7 +15,7 @@ common_waifus = [
     "yukino", "yukino yukinoshita", "kaguya", "kaguya shinomiya",
     "chika", "chika fujiwara", "hestia", "raphtalia"
 ]
-#######################################
+"======================================================================"
 
 rare_waifus = [
     'Nami (One Piece)',
@@ -115,7 +115,7 @@ def game(name):
                 coins = json.load(file)
             print(f"Coin: {coins['coins']}\n")
 
-###################################################################
+        "======================================================================"
         def summon_common_waifu(self):
             cost = 10
             if self.coin >= cost:
@@ -135,7 +135,7 @@ def game(name):
                     json.dump(data, file, indent=2)
             else:
                 print("Not enough coin!")
-###################################################################
+        "======================================================================"
         
         def summon_rare_waifu(self):
             cost = 80
