@@ -4,7 +4,7 @@ import json
 import os
 
 
-"======================================================================"
+# =========================== Unnecessary# =========================== #
 common_waifus = [
     "sakura", "sakura matou", "kanao", "shouko", "yui", "megumin",
     "aqua", "darkness", "lalatina", "itsuki", "yotsuba", "ichika",
@@ -15,7 +15,7 @@ common_waifus = [
     "yukino", "yukino yukinoshita", "kaguya", "kaguya shinomiya",
     "chika", "chika fujiwara", "hestia", "raphtalia"
 ]
-"======================================================================"
+# =========================== Unnecessary# =========================== #
 
 rare_waifus = [
     'Nami (One Piece)',
@@ -80,13 +80,13 @@ def game(name):
             self.coin = 0
             # self.waifus = []
         
-        def lod_coin(self):
+        def lod_coin(self):                      # ======= load method ======== #
             with open(save_path, "r") as file:
                 coin = json.load(file)
             self.coin = coin["coins"]
 
 
-        def question(self):
+        def question(self):                     # ======= question method ======== #
 
             q_r = random.choice([s.questions, s.questions1])
             q = random.choice(q_r)
@@ -96,26 +96,31 @@ def game(name):
                 spin = random.randint(1, 20)
                 if spin in (7, 11, 17):
                     coin = 220
+                    xp = 100
                 else:
                     coin = 80
-                print(spin)
-                print(f"Correct! You got {coin} coins~ 💰\n")
+                    xp = 40
+                # print(spin)
+                print(f"Correct! You got {coin} coins~ 💰")
+                print(f"+{xp} xp")
                 with open(save_path, "r") as file:
                     data = json.load(file)
                 data["coins"] += coin
+                data["xp"] += xp
                 self.coin += coin
                 with open(save_path, "w") as file:
                     json.dump(data, file, indent=2)
+                system.level()
             else:        
                 print("Wrong! Try again~\n")
         
 
-        def show_coin(self):
+        def show_coin(self):                           # ======= show_coin method ======== #
             with open(save_path, "r") as file:
                 coins = json.load(file)
             print(f"Coin: {coins['coins']}\n")
 
-        "======================================================================"
+# =========================== Unnecessary# =========================== #
         def summon_common_waifu(self):
             cost = 10
             if self.coin >= cost:
@@ -135,60 +140,66 @@ def game(name):
                     json.dump(data, file, indent=2)
             else:
                 print("Not enough coin!")
-        "======================================================================"
+# =========================== Unnecessary# =========================== #
         
-        def summon_rare_waifu(self):
+        def summon_rare_waifu(self):                   # ======= summon_rare_waifu method ======== #
             cost = 80
-            if self.coin >= cost:
-                r_waifu = random.choice(rare_waifus)
-                print()
-                print(f"✨ Summoning waifu... ✨")
-                time.sleep(2)
-                print(f"💘 Congratulations! {r_waifu} has joined your harem~ ❤️")
-                with open(save_path, "r") as file:
-                    data = json.load(file)
-                    if r_waifu in data["waifus"]:
-                        print(f"Seems like you already have {r_waifu}") 
-                        print(f"There is your {cost} coin back")
-                    else:
-                        print()
-                        time.sleep(1)
-                        self.coin -= cost
-                        with open(save_path, "r") as file:
-                            data = json.load(file)
-                        data["coins"] = self.coin
-                        data["waifus"].append(r_waifu)
-                        with open(save_path, "w") as file:
-                            json.dump(data, file, indent=2)                    
-            else:
-                print("Not enough coin!")                
+            xp = 90
+            
+            r_waifu = random.choice(rare_waifus)
+            print()
+            print(f"✨ Summoning waifu... ✨")
+            time.sleep(2)
+            print(f"💘 Congratulations! {r_waifu} has joined your harem~ ❤️")
+            
+            with open(save_path, "r") as file:
+                data = json.load(file)
+                if r_waifu in data["waifus"]:
+                    print(f"Seems like you already have {r_waifu}") 
+                    print(f"There is your {cost} coin back")
+                else:
+                    print(f"+{xp} xp")
+                    time.sleep(1)
+                    self.coin -= cost
+                    with open(save_path, "r") as file:
+                        data = json.load(file)
+                    data["coins"] = self.coin
+                    data["waifus"].append(r_waifu)
+                    data["xp"] += xp
+                    with open(save_path, "w") as file:
+                        json.dump(data, file, indent=2)
+                    system.level()                    
+               
 
     
-        def summon_legendary_waifu(self):
+        def summon_legendary_waifu(self):         # ======= summon_legendary_waifu method ======== #
             cost = 160
-            if self.coin >= cost:
-                l_waifu = random.choice(legendary_waifus)
-                print()
-                print(f"✨ Summoning waifu... ✨")
-                time.sleep(2)
-                print(f"💘 Congratulations! {l_waifu} has joined your harem~ ❤️")
-                with open(save_path, "r") as file:
-                    data = json.load(file)
-                    if l_waifu in data["waifus"]:
-                        print(f"Seems like you already have {l_waifu}") 
-                        print(f"There is your {cost} coin back")    
-                    else:               
-                        print()
-                        time.sleep(1)
-                        self.coin -= cost
-                        with open(save_path, "r") as file:
-                            data = json.load(file)
-                        data["coins"] = self.coin
-                        data["waifus"].append(l_waifu)
-                        with open(save_path, "w") as file:
-                            json.dump(data, file, indent=2)                    
-            else:
-                print("Not enough coin!")
+            xp = 180
+
+            l_waifu = random.choice(legendary_waifus)
+            print()
+            print(f"✨ Summoning waifu... ✨")
+            time.sleep(2)
+            print(f"💘 Congratulations! {l_waifu} has joined your harem~ ❤️")
+            
+            with open(save_path, "r") as file:
+                data = json.load(file)
+                if l_waifu in data["waifus"]:
+                    print(f"Seems like you already have {l_waifu}") 
+                    print(f"There is your {cost} coin back\n")    
+                else:
+                    print(f"+{xp} xp")          
+                    time.sleep(1)
+                    self.coin -= cost
+                    with open(save_path, "r") as file:
+                        data = json.load(file)
+                    data["coins"] = self.coin
+                    data["waifus"].append(l_waifu)
+                    data["xp"] += xp
+                    with open(save_path, "w") as file:
+                        json.dump(data, file, indent=2) 
+                    system.level()                   
+
 
 
         def show_waifus(self):
@@ -202,9 +213,22 @@ def game(name):
                     for i, w in enumerate(data["waifus"], start = 1):
                         print(f"{i}. {w.strip()}")
                     print()
+        
+
+        def level(self):                                    # ======= Leve and xp method ======== #
+            with open(save_path, 'r') as file:
+                data = json.load(file)
+            current_level = data["level"]
+            new_level = max(1, min(15, data["xp"] // 200) + 1)
+            if new_level > current_level:
+                print(f"Level {new_level}")
+            data["level"] = new_level
+            with open(save_path, 'w') as file:
+                json.dump(data, file, indent=2)
+            print()
 
     # system = Waifu(user_name)
-        def user_interface(self):
+        def user_interface(self):          # ======= user_interface method ======== #
             while True:
                 print("Chose an action!")
                 print("1. Question.")
@@ -219,12 +243,14 @@ def game(name):
                     with open(save_path, "r") as file:
                         data = json.load(file)
                     data["coins"] += 500
+                    data["xp"] += 100
                     self.coin = data["coins"]
                     # coin += 500
                     with open(save_path, "w") as file:
                         json.dump(data, file, indent=2)
                     # self.coin = coin
-                    print("Ara~ You really love me that much, onii-chan? ❤️\nI'll give you some coins as a reward~ tehe~ 💕\n")
+                    print("Ara~ You really love me that much, onii-chan? ❤️\nI'll give you some coins as a reward~ tehe~ 💕")
+                    system.level()
 
 
                 elif user in ["1", "question"]:
@@ -312,7 +338,7 @@ if not os.path.exists(save_path):
         else:
             print("Your name should be between 3 to 10 characters!")
     with open(save_path, 'w') as f:
-        data = {"player": user_name, "coins": 0, "level": 1, "waifus": []}
+        data = {"player": user_name, "coins": 0, "xp": 0, "level": 1, "waifus": []}    # ========== Json Format ==========
         json.dump(data, f, indent=2)
         time.sleep(2)
     game(user_name)
